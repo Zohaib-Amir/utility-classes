@@ -36,11 +36,15 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
+        
+        //Add LocationRequest Parameters, I created a class called "Constants" to store these parameters
+        //so I can change them globally
         mLocationRequest.setInterval(Constants.INTERVAL);
         mLocationRequest.setFastestInterval(Constants.FASTEST_INTERVAL);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
+    //Start requesting location updates after being connected
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Toast.makeText(this, "Connected to Services api", Toast.LENGTH_SHORT).show();
@@ -84,8 +88,7 @@ public class LocationUpdateService extends Service implements GoogleApiClient.Co
         }
         @Override
         public void handleMessage(Message msg) {
-            // Normally we would do some work here, like download a file.
-            // For our sample, we just sleep for 5 seconds.
+            //Show a notification, to see if it works
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(LocationUpdateService.this)
                             .setSmallIcon(R.mipmap.ic_launcher)
